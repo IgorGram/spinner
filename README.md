@@ -1,5 +1,7 @@
 # loader
 
+https://igorgram.github.io/spinner/
+
 ## Project setup
 ```
 npm install

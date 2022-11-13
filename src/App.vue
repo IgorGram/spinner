@@ -1,28 +1,45 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div v-if="isLoading" class="spinner">
+      <img src="./assets/spinner.gif" alt="Загрузка">
+    </div>
+    <todo-list v-else/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TodoList from "@/components/TodoList";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    TodoList
+  },
+  async created() {
+    setTimeout(await this.fetchUser, 1000)
+  },
+  computed: {
+    ...mapState(['isLoading']),
+  },
+  methods: {
+    ...mapActions(['fetchUser']),
+  },
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 </style>
